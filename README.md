@@ -4,11 +4,13 @@ This repo holds master versions of scripts used to manipulate ATCL data, in part
 
 The TEI version of the ATCL database is made by editing  CSV files downloaded from http://www.victorianresearch.org/atcl/snapshots.php and stored locally in a folder called ATCL. There are two csv files, one for authors and one for titles (I don't store them in this repository: if you want to replicate the process, you need to get your own copies from the ATCL site).
 
+## Stage One
+
 It's a two-stage process. First we use the standard TEI stylesheet cvstotei to convert the CSV file to a TEI conformant representation, from which we extract the relevant cells for a TEI `<bibl>`.  We convert the author file first, and then merge its contents into the second to produce the file `atcl-tei.xml`
 ~~~~
-csvtotei Bassett/authors.csv authors.tmp
+csvtotei ATCL/authors.csv authors.tmp
 saxon -s:authors.tmp -xsl:Scripts/authors2tei.xsl -o:authors.tei
-csvtotei Bassett/titles.csv titles.tmp
+csvtotei ATCL/titles.csv titles.tmp
 saxon -s:titles.tmp -xsl:Scripts/titles2tei.xsl -o:atcl-tei.xml
 ~~~~
 
@@ -23,12 +25,8 @@ As well as standard bibliographic information, the following attributes are adde
   
 In addition, the @ref attribute on `<author>` contains the ATCL author number, prefixed by the letter F, M, or U and a colon. 
 
+## Stage 2
+
 In stage 2, we scan through metadata derived from a number of archives. These metadata lists, stored in the folder `Lists`, are generated from whatever machine-tractable format we can readily download from the relevant archive; for details see the README in the Lists folder. The generation process also adds a "magic key" hopefully identical to that used by the ATCL data. 
 
 For each match found, a `<ref>` element is added to the TEI version of the ATCL data, its @target attribute providing a URL from which the corresponding text may be downloaded in that archive. 
-
-
-
-are in the looking for titles which match entries in the ATCL list. 
-
-

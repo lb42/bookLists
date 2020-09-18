@@ -89,7 +89,7 @@
   </xsl:variable>
   <xsl:variable name="result"
    select="
-    lower-case(normalize-space(replace($alltext, '[^a-zA-Z0-9]+', '')))"/>
+    lower-case(normalize-space(replace($alltext, '\W+', '')))"/>
   <xsl:value-of
    select="
     if (string-length($result) &gt; 64) then
