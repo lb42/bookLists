@@ -92,27 +92,11 @@
     lower-case(normalize-space(replace($alltext, '\W+', '')))"/>
   <xsl:value-of
    select="
-    if (string-length($result) &gt; 64) then
-     concat(substring($result, 1, 64), '...')
+    if (string-length($result) &gt; 42) then
+     concat(substring($result, 1, 42), '...')
     else
      $result"
   />
  </xsl:function>
- <!--<xsl:function name="t:sanitize" as="xs:string" >
-        <xsl:param name="text"/>
-        <xsl:variable name="alltext">
-            <xsl:value-of select="($text)" separator=""/>
-        </xsl:variable>
-        <xsl:variable name="result"
-            select="
-                lower-case(replace(normalize-space($alltext),
-                '[^\w\[\]\\(\)_]+', ''))"/>
-        <xsl:value-of
-            select="
-                if (string-length($result) &gt; 127) then
-                    concat(substring($result, 1, 127), '...')
-                else
-                    $result"
-        />
-    </xsl:function>-->
+
 </xsl:stylesheet>
