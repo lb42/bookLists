@@ -10,25 +10,33 @@
  </xsl:template>
  <xsl:template match="t:table">
   <xsl:for-each select="t:row[position() gt 1]">
+   
    <xsl:variable name="title">
     <xsl:value-of select="t:cell[@n = '3']"/>
    </xsl:variable>
-   <xsl:variable name="titleKey">
-    <xsl:value-of select="concat(t:sanitize($title), '|')"/>
-   </xsl:variable>
+
+      <xsl:variable name="titleBit">
+        <xsl:analyze-string regex='(^[^.,;:/]+)' select="t:cell[@n = '3']">
+         <xsl:matching-substring>
+        <xsl:value-of select="regex-group(1)"/>
+         </xsl:matching-substring>
+        </xsl:analyze-string>
+        </xsl:variable>
+
    <xsl:variable name="authId">
     <xsl:value-of select="t:cell[@n = '2']"/>
    </xsl:variable>
+
    <xsl:variable name="authSex">
     <xsl:value-of
      select="substring($authorFile//*:author[substring-after(@xml:id, ':') = $authId]/@xml:id, 1, 1)"
     />
    </xsl:variable>
+
    <xsl:variable name="authString">
     <xsl:value-of select="$authorFile//*:author[substring-after(@xml:id, ':') = $authId]/*:name[1]"
     />
    </xsl:variable>
-
 
 
    <xsl:variable name="pubDate">
@@ -52,9 +60,9 @@
      <xsl:attribute name="xml:id">
       <xsl:value-of select="concat('B', t:cell[@n = '1'])"/>
      </xsl:attribute>
-     <xsl:attribute name="n">
-      <xsl:value-of
-       select="concat(t:sanitize($title), '|', t:sanitize(substring-before($authString, ',')))"/>
+   <xsl:attribute name="n">
+        <xsl:value-of
+         select="concat(t:sanitize($titleBit), '|', t:sanitize(substring-before($authString, ',')))"/>           
      </xsl:attribute>
      <xsl:attribute name="ana">
       <xsl:value-of select="$balanceKey"/>
@@ -84,12 +92,10 @@
 
  <xsl:function name="t:sanitize" as="xs:string">
   <xsl:param name="text"/>
-  <xsl:variable name="alltext">
-   <xsl:value-of select="($text)" separator=" "/>
-  </xsl:variable>
+ 
   <xsl:variable name="result"
    select="
-    lower-case(normalize-space(replace($alltext, '\W+', '')))"/>
+    lower-case(normalize-space(replace($text, '\W+', '')))"/>
   <xsl:value-of
    select="
     if (string-length($result) &gt; 42) then
