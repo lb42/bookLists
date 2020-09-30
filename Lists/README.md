@@ -13,7 +13,7 @@ saxon -s:atcl-tei-backup.xml -xsl:Scripts/merger.xsl
 listName="Victorian Women Writers Project" prefix=vwwp
 ~~~~
 
-Running with the supplied test data and the current ATCL release, this finds 57 hits in 62 records. The XPath `count(//bibl[ref])` run against the output file returns 35, indicating that there are several (13 to be exact) titles for which VWWP provides multiple hits, each corresponding with a separately digitized volume. 
+Running with the supplied test data and the current ATCL release, this finds 55 hits in 62 records. The XPath `count(//bibl[ref])` run against the output file returns 35, indicating that there are several (13 to be exact) titles for which VWWP provides multiple hits, each corresponding with a separately digitized volume. 
 
 For example, the entry in the output atcl-tei.xml file for  Ouida's novel "Signa"  now reads as follows:
 ~~~~
@@ -36,14 +36,16 @@ Different digital archives provide their data and their metadata in different fo
  - next we convert it to a standard(ish) TEI format
  - then we run the merge process detailed above to add references to a new version of the atcl-tei.xml document
  
-Here is a table listing the digital archives to which we have so far applied this process.
+Here is a table listing the digital archives to which we have so far applied this process, and the numbers of resulting references added from each to the atcl-tei.xml file.
 
-|prefix|source|convertor|records|hits|
-|-|-|-|-|-|
-|bl|MicrosoftBooks_FullIndex_27_09_2018.csv|blConv.xsl|62015|6062
-Convertors for the files we have tested are included in the Scripts folder. these include the following:
+|Archive|source|convertor|records|refs|titles
+|--|--|--|--|--|
+|British Library|MicrosoftBooks_FullIndex_27_09_2018|blConv.xsl|62015|9920|5104
+|Hathi Trust|hathi_full_20200201.txt.gz|htConv.xsl|460070|18891|5655
+|Internet Archive|19cennov|iaConv.xsl|7829|4691|1665
+|Project Gutenberg|rdf-files|gutConv.xsl|38338|2880|2275
 
- - `blConv.xsl` : operates on 
- - `htConv.xsl`
- - `gutConv.xsl`
- - `iaConv.xsl`
+Overall, a total of 9099 ATCL titles (approximately 45%)  have at least one digital version in one or other of these archives. 
+
+
+

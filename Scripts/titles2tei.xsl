@@ -16,7 +16,7 @@
    </xsl:variable>
 
       <xsl:variable name="titleBit">
-        <xsl:analyze-string regex='(^[^.,;:/]+)' select="t:cell[@n = '3']">
+        <xsl:analyze-string regex='(^[^.,;:/]+)' select="replace(t:cell[@n = '3'],'(^Mrs?)\.','$1')">
          <xsl:matching-substring>
         <xsl:value-of select="regex-group(1)"/>
          </xsl:matching-substring>
