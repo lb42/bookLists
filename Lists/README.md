@@ -40,12 +40,16 @@ Here is a table listing the digital archives to which we have so far applied thi
 
 |Archive|source|convertor|records|refs|titles
 |--|--|--|--|--|
-|British Library|MicrosoftBooks_FullIndex_27_09_2018|blConv.xsl|62015|9920|5104
+|British Library|MicrosoftBooks Index 27_09_2018|blConv.xsl|62015|9920|5104
 |Hathi Trust|hathi_full_20200201.txt.gz|htConv.xsl|460070|18891|5655
 |Internet Archive|19cennov|iaConv.xsl|7829|4691|1665
-|Project Gutenberg|rdf-files|gutConv.xsl|38338|2880|2275
+|Project Gutenberg|rdf-files|gutConvRDF.xsl|38338|2880|2275
+|Google Books API|googLook.py| 
 
 Overall, a total of 9099 ATCL titles (approximately 45%)  have at least one digital version in one or other of these archives. 
+
+The file `atcl-links.csv` has more precise information about the links found for each title. 
+
 
 
 
