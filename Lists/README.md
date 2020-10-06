@@ -36,15 +36,15 @@ Different digital archives provide their data and their metadata in different fo
  - next we convert it to a standard(ish) TEI format
  - then we run the merge process detailed above to add references to a new version of the atcl-tei.xml document
  
-Here is a table listing the digital archives to which we have so far applied this process, and the numbers of resulting references added from each to the atcl-tei.xml file.
+Here is a table listing the digital archives to which we have so far applied this process, giving the number of records selected from each, the number of resulting references added from each to the atcl-tei.xml file, and the number of ATCL titles affected.
 
-|Archive|source|convertor|records|refs|titles
+ Archive|source|records|refs|titles
 |--|--|--|--|--|
-|British Library|MicrosoftBooks Index 27_09_2018|blConv.xsl|62015|9920|5104
-|Hathi Trust|hathi_full_20200201.txt.gz|htConv.xsl|460070|18891|5655
-|Internet Archive|19cennov|iaConv.xsl|7829|4691|1665
-|Project Gutenberg|rdf-files|gutConvRDF.xsl|38338|2880|2275
-|Google Books API|googLook.py| 
+|British Library|MicrosoftBooks Index 27_09_2018|62015|9920|5104
+|Hathi Trust|hathi_full_20200201.txt.gz|460070|18891|5655
+|Internet Archive|19cennov collection|7829|4691|1665
+|Project Gutenberg|rdf-files|38338|2880|2275
+|Google Books API|googLook.py|?|1517|1517| 
 
 Overall, a total of 9099 ATCL titles (approximately 45%)  have at least one digital version in one or other of these archives. 
 
