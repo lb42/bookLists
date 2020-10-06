@@ -10,7 +10,7 @@ counter=0
 searches=0
 notFound=0
 handsOff=0
-#apiKey="&key=AIzaSyBMwUUiBgF3Yzm8IbYJ_t9w-RVVdSsauAI"
+
 apiKey=""
 base_api_link = "https://www.googleapis.com/books/v1/volumes?q="
 
