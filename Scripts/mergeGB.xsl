@@ -10,13 +10,13 @@
         output a new version which includes links for $hitName from the file $listFile -->
 
 <!-- defaults overriden by command line parameters -->
-  <xsl:param name="listFile">../GB/gb-list.xml</xsl:param>
+  <xsl:param name="listFile">../Lists/gb-list.xml</xsl:param>
  <xsl:param name="listName">Google Books</xsl:param>
  <xsl:param name="prefix">gb</xsl:param>
 
  <xsl:param name="hitContext" select="document($listFile)"/>
 
- <xsl:key name="bassettKeys" match="$hitContext//t:bibl" use="normalise-space(@xml:id)"/>
+ <xsl:key name="bassettKeys" match="$hitContext//t:bibl" use="normalize-space(@xml:id)"/>
 
  <xsl:template match="/">
   <xsl:message>
@@ -43,13 +43,13 @@
         <!-- check to see if there any records with the same key in the hitFile -->
         <xsl:for-each select="key('bassettKeys', $myKey, $hitContext)">
         <xsl:variable name="myRef">
-          <xsl:choose>
-            <xsl:value-of select=", @xml:id)"/>
-          </xsl:choose>
+         
+            <xsl:value-of select="@xml:id"/>
+          
       </xsl:variable>    
          <ref>
           <xsl:attribute name="target">
-           <xsl:value-of select="concat($prefix, ':',substring-after(ref/@target,'id='))"/>
+           <xsl:value-of select="concat($prefix, ':',substring-after(t:ref/@target,'id='))"/>
           </xsl:attribute>
           <xsl:attribute name="type">
           <xsl:text>pages</xsl:text>

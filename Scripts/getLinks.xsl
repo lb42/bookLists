@@ -11,13 +11,21 @@ ATCL_id,Archive,id,Type
   <xsl:for-each select="//*:bibl/*:ref">
    <xsl:value-of select="parent::*:bibl/@xml:id"/>
    <xsl:text>,</xsl:text>
+   <xsl:variable name="prefix">
   <xsl:value-of select="substring-before(@target,':')"/>
-   <xsl:text>,</xsl:text>
+   </xsl:variable>
+   <xsl:choose>
+    <xsl:when test="$prefix eq 'ark'">
+     <xsl:text>BL,ark:</xsl:text>
+    </xsl:when>
+    <xsl:otherwise><xsl:value-of select="$prefix"/>
+     <xsl:text>,</xsl:text></xsl:otherwise>
+   </xsl:choose>   
    <xsl:value-of select="substring-after(@target,':')"/>
    <xsl:text>,</xsl:text>
    <xsl:value-of select="@type"/>
    <xsl:text>
-   </xsl:text>   
+</xsl:text>   
   </xsl:for-each>
  </xsl:template>
   
