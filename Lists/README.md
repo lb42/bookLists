@@ -44,7 +44,7 @@ Here is a table listing the digital archives to which we have so far applied thi
 |Hathi Trust|hathi_full_20200201.txt.gz|460070|18891|5655
 |Internet Archive|19cennov collection|7829|4691|1665
 |Project Gutenberg|rdf-files|38338|2880|2275
-|Google Books API|googLook.py|?|1517|1517| 
+|Google Books API|googLook.py|?|2186|2186| 
 
 Overall, a total of 9099 ATCL titles (approximately 45%)  have at least one digital version in one or other of these archives. 
 

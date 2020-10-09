@@ -9,30 +9,33 @@
     version="2.0">
  <xsl:output media-type="text" omit-xml-declaration="yes"></xsl:output>
     <xsl:template match="/">
-        <xsl:text>Decade, All,A-dig, (C % B), "Male", M-dig, (F % C), "Female", F-dig, (%)
+        <xsl:text>Decade, All,Male,Female,Unknown, A-dig, %-dig, M-dig, F-dig, U-dig , %M-dig, %F-dig
 </xsl:text>
         <xsl:text>- ,</xsl:text><xsl:value-of select="count(/TEI/text/body/listBibl/bibl)"/>
      <xsl:text>,</xsl:text>
+     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')])"/>
+     <xsl:text>,</xsl:text> 
+     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')])"/>
+     <xsl:text>,</xsl:text> 
+     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'U')])"/>
+     <xsl:text>,</xsl:text>     
      <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref])"/>
      <xsl:text>,</xsl:text>
      <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref]) 
       div count(TEI/text/body/listBibl/bibl) , '#%')"/>
      <xsl:text>,</xsl:text> 
-     
-     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')])"/>
-        <xsl:text>,</xsl:text> 
      <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'M')])"/>
-     <xsl:text>,</xsl:text> 
-      
-     <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'M')]) 
-      div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')]) , '#%')"/>
-     <xsl:text>,</xsl:text> 
-     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')])"/>
      <xsl:text>,</xsl:text> 
      <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'F')])"/>
      <xsl:text>,</xsl:text> 
+     <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'U')])"/>
+     <xsl:text>,</xsl:text> 
+     <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'M')]) 
+      div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')]) , '#%')"/>
+     <xsl:text>,</xsl:text> 
      <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'F')]) 
       div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')]) , '#%')"/>
+     
       <xsl:text>     
 </xsl:text>
      <xsl:call-template name="doRow">
@@ -68,27 +71,33 @@
   <xsl:param name="upto"/>
 
   <xsl:value-of select="concat($upto - 10,'s')"/> <xsl:text>,</xsl:text>
+ 
   <xsl:value-of select="count(TEI/text/body/listBibl/bibl[date &lt; $upto and date &gt; ($upto -11)])"/>
+  
   <xsl:text>,</xsl:text>
-  <xsl:value-of select="count(TEI/text/body/listBibl/bibl[ref][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:text>,</xsl:text> 
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:text>,</xsl:text> 
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[starts-with(author/@ref,'U')][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:text>,</xsl:text>     
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][date &lt; $upto and date &gt; ($upto -11)])"/>
   <xsl:text>,</xsl:text>
   <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][date &lt; $upto and date &gt; ($upto -11)]) 
-   div count(TEI/text/body/listBibl/bibl[date &lt; $upto and date &gt; ($upto -10)]) , '#%')"
-   /> <xsl:text>,</xsl:text>
-  <xsl:value-of select="count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)])"/>
+   div count(TEI/text/body/listBibl/bibl[date &lt; $upto and date &gt; ($upto -11)]) , '#%')"/>
   <xsl:text>,</xsl:text> 
-  <xsl:value-of select="count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][ref][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)])"/>
   <xsl:text>,</xsl:text> 
-  <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][ref][date &lt; $upto and date &gt; ($upto -10)]) 
-   div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)]) , '#%')"
-  /> <xsl:text>,</xsl:text>
-  <xsl:value-of select="count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)])"/>
   <xsl:text>,</xsl:text> 
-  <xsl:value-of select="count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][ref][date &lt; $upto and date &gt; ($upto -11)])"/>
-  <xsl:text>,</xsl:text>
-  <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][ref][date &lt; $upto and date &gt; ($upto -11)]) 
-   div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)]) , '#%')"
-  /> <xsl:text>
+  <xsl:value-of select="count(/TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'U')][date &lt; $upto and date &gt; ($upto -11)])"/>
+  <xsl:text>,</xsl:text> 
+  <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)]) 
+   div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'M')][date &lt; $upto and date &gt; ($upto -11)]) , '#%')"/>
+  <xsl:text>,</xsl:text> 
+  <xsl:value-of select="format-number(count(TEI/text/body/listBibl/bibl[ref][starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)]) 
+   div count(TEI/text/body/listBibl/bibl[starts-with(author/@ref,'F')][date &lt; $upto and date &gt; ($upto -11)]) , '#%')"/>
+   <xsl:text>
   </xsl:text> 
  </xsl:template>
  
