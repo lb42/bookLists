@@ -15,7 +15,6 @@
  <xsl:param name="prefix">bl</xsl:param>
 
  <xsl:param name="hitContext" select="document($listFile)"/>
-
  <xsl:key name="bassettKeys" match="$hitContext//t:bibl" use="@n"/>
 
  <xsl:template match="/">
@@ -25,7 +24,7 @@
   </xsl:message>
 
   <TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
-   <xi:include href="defaultHdr.xml"/>
+   <xi:include href="../defaultHdr.xml"/>
 
    <text>
     <body>
@@ -42,14 +41,23 @@
         <xsl:copy-of select="*"/>
         <!-- check to see if there any records with the same key in the hitFile -->
         <xsl:for-each select="key('bassettKeys', $myKey, $hitContext)">
- <!-- <xsl:message><xsl:value-of select="t:idno"/></xsl:message>
--->         <xsl:variable name="myRef">
+         <xsl:choose>
+          <xsl:when test="t:ref">
+           <xsl:copy-of select="t:ref"></xsl:copy-of>
+          </xsl:when>
+          <xsl:otherwise>
+           
+        
+        <xsl:variable name="myRef">
           <xsl:choose>
            <xsl:when test="$prefix = 'bl'">
             <xsl:value-of select="t:idno"/>
            </xsl:when>
            <xsl:when test="$prefix = 'ht'">
             <xsl:value-of select="concat('ht:',t:idno)"/>
+           </xsl:when>
+           <xsl:when test="starts-with(t:ref/@target,'http')">
+            <xsl:value-of select="t:ref/@target"/>
            </xsl:when>
            <xsl:otherwise>      
             <xsl:value-of select="concat($prefix, ':', @xml:id)"/>
@@ -62,7 +70,7 @@
           </xsl:attribute>
           <xsl:attribute name="type">
            <xsl:choose>
-            <xsl:when test="$prefix = 'bl'">pages</xsl:when>
+             <xsl:when test="$prefix = 'bl'">pages</xsl:when>
             <xsl:when test="$prefix = 'ia'">pages</xsl:when>
             <xsl:when test="$prefix = 'ht'">pages</xsl:when>
             <xsl:when test="$prefix = 'gb'">pages</xsl:when>
@@ -70,6 +78,8 @@
            </xsl:choose>     </xsl:attribute>
           <xsl:value-of select="$listName"/>
          </ref>
+          </xsl:otherwise>
+         </xsl:choose>
         </xsl:for-each>
        </xsl:copy>
        <xsl:text>

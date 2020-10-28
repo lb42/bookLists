@@ -17,9 +17,9 @@
          <xsl:variable name="addNameStr">
              <xsl:value-of  select="t:cell[@n='5']"/>                             
          </xsl:variable>
-<!--<xsl:message><xsl:value-of select="$addNameStr"/>
+<xsl:message><xsl:value-of select="$addNameStr"/>
 </xsl:message>
-   -->  <author>
+     <author>
          <xsl:attribute name="xml:id">
              <xsl:value-of select="substring(t:cell[@n='8'],1,1)"/>
              <xsl:text>:</xsl:text><xsl:value-of select="t:cell[@n='1']"/>
@@ -31,7 +31,7 @@
     <xsl:text> </xsl:text>
     <xsl:apply-templates select="t:cell[@n='3']"/> 
     <xsl:if test="starts-with($addNameStr,'(pseudonym)')">
-        <xsl:text> (pseud.)</xsl:text>
+        <xsl:text> [pseud.]</xsl:text>
     </xsl:if>
     <xsl:text> (</xsl:text>
     <xsl:apply-templates select="t:cell[@n='6']"/>              
